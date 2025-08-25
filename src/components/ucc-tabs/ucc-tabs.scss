@@ -1,0 +1,99 @@
+.tab-root {
+    @import '../../global/variables.scss';
+
+    display: flex;
+    flex-direction: column;
+
+    .tabs {
+        display: block;
+        flex: 0 0 auto;
+        overflow-x: auto;
+        overflow-y: visible;
+        width: 100%;
+
+        font-size: 16px;
+
+        ul {   
+            padding: 0;
+            margin: 0;
+
+            li {
+                display: inline-block;
+                margin-right: 6px;
+
+                &:last-child {
+                    margin-right: 0;
+                }
+
+                &.is-active {
+                    a {
+                        color: $text;
+                    }
+                }
+
+                a {
+                    color: $text;
+                    text-decoration: none;
+                    border-radius: 2px;
+                    border-bottom-color: #dbdbdb;
+                    background-color: rgba(15, 55, 55, 0.075);
+
+                    .icon {
+                        margin-left: 0;
+                        margin-right: 12px;
+                    }
+
+                    .error-count {
+                        font-size: 11px;
+                        font-weight: bold;
+                        margin-left: 8px;
+                        border-radius: 100%;
+                    }
+                }
+            }
+        }
+    }
+
+    .tab-panel {
+        flex: 1;
+    }
+
+    &.tab-contributions > .tabs {
+        margin: 0;
+    }
+
+    &.tab-languages {
+        margin-bottom: 30px;
+    }
+
+    &.tab-languages > .tabs {
+        margin: 0;
+        ul {
+            padding: 0;
+        }
+    }
+
+    &.tab-languages > .tab-panels > .tab-panel {
+        padding: 15px;
+        border-top: none;
+
+        .form-group {
+            margin: 15px 0;
+        }
+    }
+
+    .tab-panels {
+        border: #dbdbdb 1px solid;
+        border-top: 0;
+
+        > .tab-panel {
+            display: block;
+            padding: 10px;
+            margin: 0;
+            
+            &[hidden] {
+                display: none !important;
+            }
+        }
+    }
+}

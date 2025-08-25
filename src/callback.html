@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Logging you in to MyLac... / Connexion à MonBac</title>
+</head>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/oidc-client/1.9.1/oidc-client.min.js"></script>
+    <script>
+        new Oidc.UserManager({response_mode:"query"}).signinRedirectCallback().then(function() {
+            var redirectLocation = localStorage.getItem('mylac-redirect');
+            if (redirectLocation) {
+                localStorage.removeItem('mylac-redirect');
+                window.location = redirectLocation;
+            } else {
+                window.location = window.location.origin;
+            }
+        }).catch(function(e) {
+            console.error(e);
+        });
+    </script>
+
+    <main>
+        Logging you in to MyLac... / Connexion à MonBac
+    </main>
+</body>
+</html>
+        

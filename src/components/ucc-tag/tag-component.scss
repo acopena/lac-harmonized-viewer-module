@@ -1,0 +1,35 @@
+ucc-tag {
+    &:not(body) .icon:first-child:not(:last-child) {
+        margin-left: 0;
+    }
+    &:focus {
+        box-shadow: 0 0 0 0.25em rgba(50, 152, 220, 0.25) !important;
+    }
+
+    &-content {
+        overflow: hidden;
+        max-width: 400px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:not(body) .delete:last-child {
+        margin-left: 8px;
+    }
+
+    &-input {
+        padding: 0;
+        border: none;
+        border-radius: 0;
+        background-color: transparent;
+
+        &:focus,
+        &:active {
+            outline: none;
+        }
+    }
+}

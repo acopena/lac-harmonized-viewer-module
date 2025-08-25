@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<!--[if lt IE 9]><html class="no-js lt-ie9" lang="en" dir="ltr"><![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en" dir="ltr">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <!-- Web Experience Toolkit (WET) / Boîte à outils de l'expérience Web (BOEW)
+		wet-boew.github.io/wet-boew/License-en.html / wet-boew.github.io/wet-boew/Licence-fr.html -->
+  <title>Content page - GCWU theme - Working examples - Web Experience Toolkit
+  </title>
+  <meta content="width=device-width,initial-scale=1" name="viewport">
+  <!-- Meta data -->
+  <meta name="description"
+    content="Web Experience Toolkit (WET) includes reusable components for building and maintaining innovative Web sites that are accessible, usable, and interoperable. These reusable components are open source software and free for use by departments and external Web communities">
+  <meta name="dcterms.title" content="Content page - Web Experience Toolkit">
+  <meta name="dcterms.creator" content="French name of the content author / Nom en français de l'auteur du contenu">
+  <meta name="dcterms.issued" title="W3CDTF" content="Date published (YYYY-MM-DD) / Date de publication (AAAA-MM-JJ)">
+  <meta name="dcterms.modified" title="W3CDTF" content="Date modified (YYYY-MM-DD) / Date de modification (AAAA-MM-JJ)">
+  <meta name="dcterms.subject" title="scheme" content="French subject terms / Termes de sujet en français">
+  <meta name="dcterms.language" title="ISO639-2" content="eng"> <!-- Meta data-->
+  <!--[if gte IE 9 | !IE ]><!-->
+
+  <link href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v5_0_2/wet-boew/assets/favicon.ico" rel="icon"
+    type="image/x-icon">
+  <link rel="stylesheet" href="https://www.canada.ca/etc/designs/canada/cdts/gcweb/v5_0_2/wet-boew/css/theme.min.css">
+  <!--<![endif]-->
+
+  <noscript>
+    <link rel="stylesheet" href="//localhost:5000/wet-boew/css/noscript.min.css" />
+  </noscript>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="http://localhost:8080/dist/uv.css" />
+
+
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" /> -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+
+
+
+
+  <!-- Universal viewer -->
+  <script type="text/javascript" src="http://localhost:8080/dist/umd/UV.js"></script>
+  <!-- <script src="https://colabapi.bac-lac.gc.ca/hv/uv/umd/UV.js"></script> -->
+  <script type="module" src="/build/lac-harmonized-viewer-module.esm.js"></script>
+  <script nomodule src="/build/lac-harmonized-viewer-module.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-size: 16px;
+    }
+
+    .btn {
+      font-size: 16px;
+    }
+
+    .form-control {
+      font-size: 16px;
+    }
+
+    .btn {
+      border-style: outset;
+      height: auto;
+      min-height: 36px;
+      min-width: 36px;
+      white-space: normal;
+
+    }
+
+    .btn-default {
+      color: #335075;
+      background-color: #eaebed;
+      border-color: #dcdee1;
+    }
+  </style>
+  <!-- <script>
+    var urlAdaptor = new UV.IIIFURLAdaptor();
+    uv = UV.init("uv",
+      {
+        manifest: "https://digitalmanifest.bac-lac.gc.ca/DigitalManifest/1/3225554", 
+        embedded: true, 
+        locales: [{ name: "en-CA" }]
+      }); 
+    urlAdaptor.bindTo(uv); 
+    uv.on("configure", function ({ config, cb }) { 
+      cb(
+        { 
+          options: { 
+            headerPanelEnabled: false, 
+            rightPanelEnabled: false, 
+            pagingEnabled: false, 
+            usePDFJs: false, 
+            canvasIndex: 0, 
+            isUcc: true 
+          } 
+        }); 
+      });
+  </script> -->
+
+</head>
+
+<body vocab="http://schema.org/" typeof="WebPage">
+  <ul id="wb-tphp">
+    <li class="wb-slc">
+      <a class="wb-sl" href="#wb-cont">Skip to main content</a>
+    </li>
+    <li class="wb-slc visible-sm visible-md visible-lg">
+      <a class="wb-sl" href="#wb-info">Skip to "About this site"</a>
+    </li>
+  </ul>
+  <header role="banner">
+    <div id="wb-bnr">
+      <div id="wb-bar">
+        <div class="container">
+          <div class="row">
+            <object id="gcwu-sig" type="image/svg+xml" tabindex="-1" role="img"
+              data="//localhost:5000/theme-gcwu-fegc/assets/sig-en.svg"
+              aria-label="Government of Canada / Gouvernement du Canada"></object>
+            <ul id="gc-bar" class="list-inline">
+              <li><a href="http://www.canada.ca/en/index.html" rel="external">Canada.ca</a></li>
+              <li><a href="http://www.canada.ca/en/services/index.html" rel="external">Services</a></li>
+              <li><a href="http://www.canada.ca/en/gov/dept/index.html" rel="external">Departments</a>
+              </li>
+              <li id="wb-lng">
+                <h2>Language selection</h2>
+                <ul class="list-inline">
+                  <li><a lang="fr" href="content-fr.html">Français</a></li>
+                </ul>
+              </li>
+            </ul>
+            <section class="wb-mb-links col-xs-12 visible-sm visible-xs" id="wb-glb-mn">
+              <h2>Search and menus</h2>
+              <ul class="pnl-btn list-inline text-right">
+                <li><a href="#mb-pnl" title="Search and menus" aria-controls="mb-pnl"
+                    class="overlay-lnk btn btn-sm btn-default" role="button"><span
+                      class="glyphicon glyphicon-search"><span class="glyphicon glyphicon-th-list"><span
+                          class="wb-inv">Search and
+                          menus</span></span></span></a></li>
+              </ul>
+              <div id="mb-pnl"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div id="wb-sttl" class="col-md-5">
+            <a href="http://wet-boew.github.io/v4.0-ci/index-en.html">
+              <span>Web Experience Toolkit</span>
+            </a>
+          </div>
+          <object id="wmms" type="image/svg+xml" tabindex="-1" role="img"
+            data="//localhost:5000/theme-wet-boew/assets/wmms.svg"
+            aria-label="Symbol of the Government of Canada"></object>
+          <section id="wb-srch" class="visible-md visible-lg">
+            <h2>Search</h2>
+            <form action="https://google.ca/search" method="get" role="search" class="form-inline">
+              <div class="form-group">
+                <label for="wb-srch-q">Search website</label>
+                <input id="wb-srch-q" class="form-control" name="q" type="search" value="" size="27" maxlength="150">
+                <input type="hidden" name="q" value="site:wet-boew.github.io OR site:github.com/wet-boew/">
+              </div>
+              <button type="submit" id="wb-srch-sub" class="btn btn-default">Search</button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </div>
+    <nav role="navigation" id="wb-sm" data-ajax-replace="//localhost:5000/ajax/sitemenu-en.html" data-trgt="mb-pnl"
+      class="wb-menu visible-md visible-lg" typeof="SiteNavigationElement">
+      <div class="container nvbar">
+        <h2>Topics menu</h2>
+        <div class="row">
+          <ul class="list-inline menu">
+            <li><a href="./index-en.html">WET project</a></li>
+            <li><a href="./docs/start-en.html#implement">Implement WET</a></li>
+            <li><a href="./docs/start-en.html">Contribute to WET</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <nav role="navigation" id="wb-bc" property="breadcrumb">
+      <h2>You are here:</h2>
+      <div class="container">
+        <div class="row">
+          <ol class="breadcrumb">
+            <li>
+              <a href="http://wet-boew.github.io/v4.0-ci/index-en.html">Home</a>
+            </li>
+            <li>
+              <a href="http://wet-boew.github.io/v4.0-ci/demos/index-en.html">Working examples</a>
+            </li>
+            <li>
+              <a href="index-en.html">GCWU theme</a>
+            </li>
+            <li>Content page</li>
+          </ol>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main role="main" property="mainContentOfPage" class="container" style="max-width: 1170px !important;">
+    <h1 id="wb-cont" property="name">Content page</h1>
+    <section>
+      <script>
+        /*document.addEventListener('lacModUccContributeTutorialReady', function(ev) {
+          console.log("Ucc contribute loaded", ev.target);
+        });*/
+      </script>
+      <div class="container">
+
+        <!-- images test case Fond and collection-->
+        <!-- M3u8 video -->
+        <lac-harmonized-viewer reference-system="4" item-number="27203" is-ucc="false" ecopy="27203" app-Environment="Prod"/>   
+
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="3635521" is-ucc="true" ecopy="e010697272-v8" app-Environment="local"/>    -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="3635521" is-ucc="true" ecopy="e010697272-v8" app-Environment="local"/>    -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="5030348" is-ucc="false" ecopy="e011181043-001" app-Environment="Prod"/>    -->
+
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="4317859"  ecopy="e010962149_s1-v8" app-Environment="Prod" /> -->
+        <!-- <lac-harmonized-viewer reference-system="24" item-number="391" app-Environment="Prod" />  -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="1883093" app-Environment="Prod" />  -->
+         <!-- <lac-harmonized-viewer reference-system="1" item-number="34"  ecopy="e010790221"  app-Environment="Prod" />  -->
+
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="2948201" is-ucc="true" ecopy="e011093320-v8" app-Environment="Prod" /> -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="3225554" is-ucc="true" ecopy="a162428-v6" app-Environment="Prod" /> -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="3198362" is-ucc="true" ecopy="e011179957-v8" app-Environment="Prod"/>  -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="3366782" is-ucc="true" ecopy="a059585-v8" app-Environment="prod"/>    -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="4315172" is-ucc="true" ecopy="e010979885-v8" app-Environment="prod"/>    -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="4804864" is-ucc="true" ecopy="e011160980-v8" app-Environment="prod"/>    -->
+
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="4126381" is-ucc="false" ecopy="n0014655k_a1" app-Environment="Prod"/>     -->
+
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="102570" is-ucc="true" ecopy="e002743507" layout-option="right" app-Environment="prod"/>     -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="536622" is-ucc="false" ecopy="e008559607"
+      kwic-q="port" kwic-count="3" kwic-pages="1" kwic-exact="" kwic-q-none="" kwic-q-any="" kwic-ecopies="e008559607" app-Environment="local"/>   -->
+
+        <!-- <lac-harmonized-viewer reference-system="fonandcol" item-number="5030348" app-Environment="prod" language="en"
+        ecopy="e011181043-001" style="display:block" suppress-gallery="false" kwic-q="" kwic-q-exact="socks galore"
+        kwic-q-any="" kwic-q-none="" kwic-count="1" kwic-pages="." kwic-ecopies="e011181043-004" 
+        app-Environment="prod">
+      </lac-harmonized-viewer> -->
+
+      <!-- <lac-harmonized-viewer reference-system="medhonawa"
+                                       item-number="780"
+                                       app-Environment="Prod"
+                                       language="en"
+                                       ecopy="e010985239"
+                                       style="display:block"
+                                       suppress-gallery="false"
+                                       kwic-q=""
+                                       kwic-q-exact=""
+                                       kwic-q-any=""
+                                       kwic-q-none=""
+                                       kwic-count=""
+                                       kwic-pages=""
+                                       kwic-ecopies="">
+                </lac-harmonized-viewer> -->
+
+
+
+        <!-- <lac-harmonized-viewer reference-system="10" item-number="144536" app-Environment="Prod"/> -->
+        <!-- <lac-harmonized-viewer reference-system="10" item-number="144536" app-Environment="Prod" ecopy="132400b" /> -->
+
+        <!-- <lac-harmonized-viewer reference-system="10" item-number="10009" />    -->
+        <!-- <lac-harmonized-viewer reference-system="10" item-number="29975" />    -->
+
+        <!-- Dialmking -->
+        <!-- <lac-harmonized-viewer reference-system="3" item-number="29585"  />   -->
+
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="1883093"  />  -->
+
+        <!-- kia -->
+        <!-- <lac-harmonized-viewer reference-system="13" item-number="36576"/>    -->
+
+
+        <!-- Old manifest structure as of 2024-07-07 -->
+        <!-- <lac-harmonized-viewer reference-system="5" item-number="78193" is-ucc="false" />   -->
+        <!-- <lac-harmonized-viewer reference-system="5" item-number="78193" is-ucc="true" ecopy="e003199060" suppress-gallery />   -->
+        <!-- <lac-harmonized-viewer reference-system="5" item-number="3352" />         -->
+
+        <!-- //Finding aid -->
+        <!-- <lac-harmonized-viewer reference-system="41" item-number="77"  app-Environment="Prod" />  -->
+
+
+        <!-- <lac-harmonized-viewer reference-system="cangaz" item-number="2497" kwic-q="port" kwic-count="3" kwic-pages="4,5,6" kwic-exact=""
+      kwic-q-none="" kwic-q-any=""
+      kwic-ecopies="cgc_p1-2_v013_n000_t002_000_18800503_p00002_z00002,2_v013_n000_t002_000_18800503_p00004_z00004,cgc_p1-2_v013_n000_t002_000_18800503_p00004_z00004,
+      2_v013_n000_t002_000_18800503_p00005_z00005,cgc_p1-2_v013_n000_t002_000_18800503_p00006_z00006" /> -->
+
+        <!--Census -->
+        <!-- <lac-harmonized-viewer reference-system="7" item-number="62475052"  is-ucc="false" app-Environment="prod" ecopy="e002854046"/>    -->
+        <!-- <lac-harmonized-viewer reference-system="7" item-number="44683558" ecopy="4108910_00386" app-Environment="prod"/>    -->
+        
+        <!-- FilFivAndAsound -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="18605" app-Environment="prod" ecopy=18dd605/>  -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="6965" app-Environment="prod" ecopy="6965" />  -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="5112" app-Environment="prod" ecopy="5112-1985-0305-07-S1" />  -->
+        
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="33132" app-Environment="dev" />  -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="20197" app-Environment="dev" />  -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="417380" app-Environment="dev" />  -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="417405" app-Environment="prod" />           -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="25255"  app-Environment="prod" />          -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="5112" app-Environment="prod"/> -->
+        <!-- <lac-harmonized-viewer reference-system="4" item-number="33225" /> -->
+
+
+        <!-- Fond and col with PDF File -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="1642152"  is-ucc="true" ecopy="e011435495-012"/>   -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="3345678"  />  -->
+        <!-- 
+      <lac-harmonized-viewer reference-system="ordincou" item-number="309709" kwic-q="ottawa" kwic-count="3" kwic-pages="1,3,4" kwic-exact=""
+      kwic-q-none="" kwic-q-any=""
+      kwic-ecopies="e010913484-v8,e010913486-v8,e010913487-v8" />    -->
+
+        <!-- pdf + multi-content type test case -->
+        <!-- <lac-harmonized-viewer reference-system="10" item-number="29975" ecopy="229609b" /> -->
+        <!-- <lac-harmonized-viewer reference-system="10" item-number="144536" /> -->
+
+        <!-- Has digilab / UCC contributions -->
+        <!--<lac-harmonized-viewer show-link-to-record reference-system="1" item-number="1005" />-->
+        <!--<lac-harmonized-viewer show-link-to-record reference-system="1" item-number="3987492" />-->
+
+        <!-- Incorrect ref or item -->
+        <!--<lac-harmonized-viewer reference-system="1" item-number="1230223123"  />-->
+        <!-- Empty manifest -->
+        <!--<lac-harmonized-viewer reference-system="4" item-number="322005"  />-->
+
+        <!-- UCC -->
+        <!-- <lac-harmonized-viewer is-ucc reference-system="1" item-number="98246" ecopy="e000000423" is-ucc="false" /> -->
+        <!-- <lac-harmonized-viewer is-ucc reference-system="1" item-number="5067139" ecopy="e002743275" is-ucc="false" /> -->
+
+        <!-- Other test cases -->
+        <!-- Single item UCC case -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="3191856" /> -->
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="1508389" ecopy="e000041452" is-ucc="true" /> -->
+        <!-- No UCC -->
+        <!-- <lac-harmonized-viewer reference-system="fonandcol" item-number="3987492" /> -->
+        <!-- Suppress gallery -->
+
+        <!-- <lac-harmonized-viewer reference-system="1" item-number="98246" ecopy="e000000201" suppress-gallery /> -->
+        <!-- Not loading thumbnails -->
+        <!-- <lac-harmonized-viewer reference-system="10" item-number="100115" /> -->
+      </div>
+    </section>
+    <dl id="wb-dtmd">
+      <dt>Date modified:&#32;</dt>
+      <dd><time property="dateModified">2014-08-13</time></dd>
+    </dl>
+  </main>
+  <footer role="contentinfo" id="wb-info" class="visible-sm visible-md visible-lg wb-navcurr">
+    <div class="container">
+      <nav role="navigation">
+        <h2>About this site</h2>
+        <ul id="gc-tctr" class="list-inline">
+          <li><a rel="license" href="http://wet-boew.github.io/wet-boew/License-en.html">Terms and
+              conditions</a></li>
+          <li><a href="http://www.tbs-sct.gc.ca/tbs-sct/common/trans-eng.asp">Transparency</a></li>
+        </ul>
+        <div class="row">
+          <section class="col-sm-3">
+            <h3>Contact us</h3>
+            <ul class="list-unstyled">
+              <li><a href="https://github.com/wet-boew/wet-boew/issues/new">Questions or comments?</a>
+              </li>
+            </ul>
+          </section>
+          <section class="col-sm-3">
+            <h3>About</h3>
+            <ul class="list-unstyled">
+              <li><a href="http://wet-boew.github.io/v4.0-ci/index-en.html#about">About the Web Experience
+                  Toolkit</a></li>
+              <li><a href="http://www.tbs-sct.gc.ca/ws-nw/index-eng.asp">About the Web Standards</a></li>
+            </ul>
+          </section>
+          <section class="col-sm-3">
+            <h3>News</h3>
+            <ul class="list-unstyled">
+              <li><a href="https://github.com/wet-boew/wet-boew/pulse">Recent project activity</a></li>
+              <li><a href="https://github.com/wet-boew/wet-boew/graphs">Project statistics</a></li>
+            </ul>
+          </section>
+          <section class="col-sm-3">
+            <h3>Stay connected</h3>
+            <ul class="list-unstyled">
+              <li><a href="https://twitter.com/WebExpToolkit">Twitter</a></li>
+            </ul>
+          </section>
+        </div>
+      </nav>
+    </div>
+    <div id="gc-info">
+      <div class="container">
+        <nav role="navigation">
+          <h2>Government of Canada footer</h2>
+          <ul class="list-inline">
+            <li><a href="http://healthycanadians.gc.ca"><span>Health</span></a></li>
+            <li><a href="http://travel.gc.ca"><span>Travel</span></a></li>
+            <li><a href="http://www.servicecanada.gc.ca/eng/home.shtml"><span>Service Canada</span></a></li>
+            <li><a href="http://www.jobbank.gc.ca"><span>Jobs</span></a></li>
+            <li><a href="http://actionplan.gc.ca/en"><span>Economy</span></a></li>
+            <li id="canada-ca"><a href="http://www.canada.ca/en/index.html">Canada.ca</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <!-- <script type="text/javascript" src="http://localhost:8080/dist/umd/UV.js"></script> -->
+</body>
+
+</html>

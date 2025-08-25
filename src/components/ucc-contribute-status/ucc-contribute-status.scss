@@ -1,0 +1,14 @@
+.contribute-status {
+    padding-left: 20px;
+    .radio {
+        label {
+            strong {
+                &:after {
+                    content: "–";
+                    font-weight: normal;
+                    margin: 0 8px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,28 @@
+ucc-input {
+    display: block;
+    margin-top: 5px;
+
+    .help {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+}
+
+.field {
+    .control {
+        .columns {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.validation-error {
+    &__number:after {
+        content: ' – ';
+        font-weight: normal;
+    }
+}
+
+ucc-input .message {
+    font-size: 14px;
+}

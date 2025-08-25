@@ -1,0 +1,426 @@
+@import 'bulma/sass/utilities/animations';
+
+body {
+    font-size: 16px;
+  }
+
+  .btn {
+    font-size: 16px;
+  }
+
+  .form-control {
+    font-size: 16px;
+  }
+
+  .btn {
+    border-style: outset;
+    height: auto;
+    min-height: 36px;
+    min-width: 36px;
+    white-space: normal;
+    
+  }
+
+  .btn-default {
+    color: #335075;
+    background-color: #eaebed;
+    border-color: #dcdee1;
+  }
+
+lac-harmonized-viewer {
+    display: block;
+
+    @import 'bulma/sass/utilities/_all';
+    @import 'bulma/sass/base/_all.sass';
+    @import 'bulma/sass/components/_all';
+    @import 'bulma/sass/form/_all';
+
+    .radio+.radio {
+        margin-left: 0;
+    }
+
+    .control,
+    .input,
+    .button {
+        font-size: 14px;
+    }
+
+    @import 'bulma/sass/grid/_all';
+    @import 'bulma/sass/elements/_all';
+    @import 'bulma/sass/layout/_all';
+
+    @import '@material/button/mdc-button';
+    @import '@material/snackbar/mdc-snackbar';
+
+
+
+    // #uv {
+    //     width: 100%;
+    //     height: 75vh;
+    // }
+    .uv {      
+        width: 100%;
+         height: 75vh;
+        .leftPanel {
+
+            .tabs .tab {
+                width: 90px;
+            }
+
+            .info .label {
+                color: white;
+                text-align: left;
+            }
+
+        }
+    }
+
+    .mdc-snackbar__surface {
+        transform: scale(1.25);
+        opacity: 1
+    }
+
+    #uv {
+
+        //Firefox issues if display: block;
+        //display: block;
+        @media all and (-ms-high-contrast:none) {
+            display: block;
+        }
+    }
+
+    .ucc-container {
+        display: block;
+        flex-direction: column;
+        background-color: white;
+
+        &--fullscreen {
+            height: 100vh;
+
+            #lac-hv-visual {
+                display: block;
+                flex-direction: column;
+                height: 100%;
+
+                #uv {
+                    flex: 1 1 auto;
+                    // Toolbar button height = 37px + padding 10px * 2 = 57px
+                    max-height: calc(100vh - 57px);
+                }
+
+                ucc-toolbar {
+                    flex: 0 0 57px;
+                    padding: 10px;
+                }
+            }
+
+            ucc-toolbar .level {
+                margin-bottom: 0;
+            }
+
+            ucc-toolbar #user-profile-dropdown-menu {
+                bottom: 100%;
+                top: auto;
+            }
+
+        }
+
+        &--open {
+
+            // Side-by-side UCC contribution CSS
+            // ALL of the CSS which produces the side-by-side view is here
+            @media (min-width: 992px) {
+                display: grid;
+                display: -ms-grid;
+                margin-bottom: 20px;
+                grid-template-columns: minmax(0, 1fr) 450px;
+                -ms-grid-columns: 1fr 450px;
+                grid-template-rows: 700px;
+                -ms-grid-rows: 700px;
+                overflow: hidden;
+
+                #lac-hv-visual {
+                    grid-column: 1;
+                    -ms-grid-column: 1;
+                    grid-row: 1;
+                    -ms-grid-row: 1;
+                }
+
+                // Only icons when in side-by-side mode
+                ucc-toolbar {
+                    padding: 10px 0;
+                }
+
+                ucc-toolbar .level {
+                    margin-bottom: 0;
+                }
+
+                ucc-toolbar .button-text {
+                    display: none;
+                }
+
+                // Limited vertical spacing - force menu upwards
+                ucc-toolbar #user-profile-dropdown-menu {
+                    bottom: 100%;
+                    top: auto;
+                }
+
+                // Hide username to avoid wrapping
+                ucc-toolbar #user-profile-dropdown button>span:not(.icon-svg) {
+                    display: none;
+                }
+
+                #lac-hv-working {
+                    max-width: 450px;
+                    grid-column: 2;
+                    -ms-grid-column: 2;
+                    grid-row: 1;
+                    -ms-grid-row: 1;
+                }
+
+                ucc-contribute,
+                ucc-contribute-create {
+                    height: 100%;
+                    padding-left: 8px;
+                }
+
+                ucc-contribute {
+                    >form {
+                        display: block;
+                        flex-direction: column-reverse;
+                        height: 100%;
+                    }
+
+                    >form>.level.is-mobile {
+                        flex: 0;
+                        height: 37px;
+                        min-height: 37px; // ie
+                        margin-top: 13px;
+                        margin-bottom: 0;
+                    }
+
+                    // Max height of container = 500px
+                    // save = 50px
+                    // Tabs = 58px
+                    // Rest = 500-50-58 = 392px
+                    // Allows for scrollable form tab panel with fix total height of container @ 500px;
+                    form>ucc-tabs {
+                        // display: flex;
+                        display: block;
+                        flex-direction: column;
+                        flex: 1;
+                        flex-basis: auto;
+                        height: calc(100% - 50px);
+                    }
+
+                    form>ucc-tabs>.tab-panels {
+                        flex: 1;
+                        height: calc(100% - 20px);
+                        padding: 10px;
+                        overflow-y: auto;
+                    }
+
+                    ucc-tab .column.is-three-quarters {
+                        width: 100%
+                    }
+
+                }
+            }
+
+            // WET theme resize container
+            @media (min-width: 1200px) {
+                // grid-template-rows: 710px;
+                // -ms-grid-rows: 710px;
+                grid-template-rows: auto;
+                -ms-grid-rows: auto;
+
+                ucc-toolbar #user-profile-dropdown button>span:not(.icon-svg) {
+                    display: inline;
+                }
+
+            }
+
+            // Navigation resize to 16 cols
+            @media (min-width: 1280px) {
+                // grid-template-rows: 688px;
+                // -ms-grid-rows: 688px;
+                grid-template-rows: auto;
+                -ms-grid-rows: auto;
+            }
+        }
+
+        // Fullscreen & Open use case
+        // Max the height, sidepanel up to 600px
+        &.ucc-container--fullscreen.ucc-container--open {
+            display: grid;
+            display: -ms-grid;
+            grid-template-columns: auto 600px;
+            -ms-grid-columns: 1fr 600px;
+            grid-template-rows: 100%;
+            -ms-grid-rows: 100%;
+            box-sizing: border-box;
+            overflow: hidden;
+
+            #lac-hv-working {
+                max-width: 600px;
+
+                ucc-contribute,
+                ucc-contribute-create {
+                    padding: 20px;
+                }
+
+                @media (min-width: 1200px) {
+                    ucc-toolbar .primary-button-text {
+                        display: inline;
+                    }
+                }
+            }
+        }
+    }
+
+    // &.is-placeholder {
+    //     min-height: 100px;
+    //     background: linear-gradient(90deg, rgba(0, 0, 0, 0.02) 25%, rgba(0, 0, 0, 0.03) 37%, rgba(0, 0, 0, 0.02) 63%);
+    //     background-size: 400% 100%;
+    //     animation: ucc-ghost-loading 1.4s ease infinite;
+    // }
+
+    // @keyframes ucc-ghost-loading {
+    //     0% {
+    //         background-position: 100% 50%;
+    //     }
+    //     100% {
+    //         background-position: 0 50%;
+    //     }
+    // }
+
+    .loader-wrapper {
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        z-index: -1;
+        transition: opacity .3s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 6px;
+
+        .loader {
+            height: 80px;
+            width: 80px;
+        }
+
+        &.is-active {
+            opacity: 1;
+            z-index: 1;
+        }
+    }
+
+    .title {
+        color: white;
+    }
+
+
+    .tabs {
+        display: block;
+        text-align: start;
+        overflow: hidden;
+        font-size: 12px;
+        margin: 0;
+        white-space: nowrap;
+        cursor: pointer;
+        width: auto;
+    }
+
+    .tab {
+        width: 90px;
+    }
+
+    .label {
+        border-style: none;
+        display: contents;
+        font-size: larger;
+    }
+
+}
+
+.iconplayer {
+    background-color: black;
+    border: 0px;
+    margin-top: 7px;    
+    margin-right: 2px;
+}
+
+.icon {
+    padding-right: 5px;    
+}
+
+
+.spinnerLoader {
+    z-index: 999999;
+    margin-right: auto;
+    margin-left: auto;
+    border: 8px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 8px solid #3498db;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 2s linear infinite;
+    /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.showMe {
+    display: block
+}
+
+.hideMe {
+    display: none;
+}
+
+.legend {
+    font-size: small;
+    //display: inline-flex;
+    justify-content: left;
+
+}
+.kwic-image {
+    position: absolute;
+    width: 20px !important;
+    float: left !important;
+}
+
+.ucc-image {
+    position: absolute;
+    width: 20px;
+    float: right;
+}
+
+.kwic-legend {
+    width: 20px;
+}
+
+.layoutoption {
+    padding-bottom: 10px;
+}

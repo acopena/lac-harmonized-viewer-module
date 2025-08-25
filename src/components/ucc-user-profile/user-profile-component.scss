@@ -1,0 +1,54 @@
+ucc-user-profile {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    &.navbar-end {
+        align-items: center;
+    }
+
+    .img-thumbnail {
+        height: auto;
+        max-height: fit-content;
+    }
+
+    #user-profile-dropdown {
+
+        > .dropdown-trigger {
+            display: flex;
+
+            > button {
+                padding-right: 12px;
+                padding-left: 12px;
+                
+                font-size: 16px;
+                
+                > span:not(.icon-svg) {
+                    display: none;
+                }
+
+                .icon-svg:first-child {
+                    margin-right: 6px;
+                }
+                .icon-svg:last-child {
+                    margin-left: 6px;
+                }
+            }
+        }
+    }
+
+    #user-profile-dropdown-menu {
+        padding: 0;
+
+        .dropdown-item {
+            font-size: 14px;
+        }
+    }
+
+    @media (min-width: 550px) {
+        // Match original rule to avoid CSS priority conflicts
+        #user-profile-dropdown > .dropdown-trigger > button > span:not(.icon-svg) {
+            display: inline;
+        }
+    }
+}

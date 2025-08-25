@@ -1,0 +1,63 @@
+{
+  "name": "lac-harmonized-viewer-module",
+  "version": "1.0.0",
+  "description": "Stencil Component Starter",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.mjs",
+  "es2017": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/lac-harmonized-viewer-launcher/lac-harmonized-viewer-module.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "prod": "stencil build --hvProd --docs",
+    "prod.watch": "stencil build --hvProd --watch --serve",
+    "qa": "stencil build --hvQa",
+    "qa.watch": "stencil build --hvQa --watch --serve",
+    "dev": "stencil build --hvDev",
+    "dev.watch": "stencil build --dev --hvDev --watch --serve",
+    "local": "stencil build --dev --hvLocal",
+    "start": "stencil build --dev --hvLocal --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^7.0.0",
+    "@fortawesome/free-regular-svg-icons": "^5.15.2",
+    "@fortawesome/react-fontawesome": "^0.2.3",
+    "@stencil/redux": "^0.1.2",
+    "axios": "^0.24.0",
+    "i18next": "^17.3.1",
+    "i18next-browser-languagedetector": "^3.1.1",
+    "i18next-chained-backend": "^2.1.0",
+    "i18next-localstorage-backend": "^3.1.3",
+    "i18next-xhr-backend": "^3.2.2",
+    "isomorphic-unfetch": "4.0.2",
+    "npm": "^10.8.3",
+    "oidc-client": "^1.11.5",
+    "popper.js": "^1.16.0",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2"
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.36",
+    "@fortawesome/free-solid-svg-icons": "^5.15.4",
+    "@stencil/core": "^1.17.4",
+    "@stencil/sass": "^1.5.2",
+    "@types/node": "^12.20.55",
+    "@types/react": "17.0.20",
+    "@types/react-dom": "17.0.9",
+    "bulma": "^0.8.2",
+    "material-components-web": "^4.0.0",
+    "sass": "1.78.0",
+    "typescript": "4.4.2"
+  }
+}

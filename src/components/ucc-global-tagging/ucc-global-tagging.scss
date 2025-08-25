@@ -1,0 +1,70 @@
+@import '../../../node_modules/bulma/sass/utilities/_all.sass';
+
+.tags-container {
+    padding: 15px 12px !important;
+    min-height: 0 !important;
+    height: fit-content !important;
+    background-color: $light;
+
+
+    &.is-typing {
+        .tag-input {
+            display: block !important;
+        }
+        .tag-add {
+            display: none !important;
+        }
+    }
+
+    &--empty {
+        font-size: 14px;
+        font-style: italic;
+    }
+
+    .tags.tag-cloud {
+        display: flex;
+        align-items: flex-start;
+        margin: 0;
+        padding: 0;
+
+        .tag {
+            display: flex;
+            text-decoration: none;
+            font-size: 15px !important;
+            margin: 0 0.25em 0.25em 0 !important;
+        }
+
+        .tag-input {
+            display: none;
+            width: fit-content !important;
+            background-color: white;
+        }
+
+        .tag-add {
+            margin-bottom: 0;
+        }
+    }
+}
+
+ucc-global-tagging {
+    .dropdown {
+        .dropdown-content {
+            display: none;
+        }
+        &.is-active .dropdown-content {
+            display: block;
+        }
+    }
+
+    .dropdown-content {
+        
+        .dropdown-item {
+            font-size: 14px;
+        }
+
+        a:focus {
+            // Restore no-href focus 
+            outline: 1px solid rgb(77, 144, 254) !important;
+        }
+    }
+}

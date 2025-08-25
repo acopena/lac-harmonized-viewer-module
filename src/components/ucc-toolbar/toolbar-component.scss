@@ -1,0 +1,59 @@
+ucc-toolbar {
+  display: block;
+  width: 100%;
+  height: fit-content;
+  padding-top: 10px;
+
+  background-color: #fff;
+
+  .btn-group {
+      margin-right: 10px;
+
+      &:last-child {
+          margin-right: 0;
+      }
+  }
+
+  .btn {
+      min-height: auto;
+  }
+
+  .button-text {
+      display: none;
+  }
+
+  @media (min-width: 992px) {
+      .button-text {
+          display: inline;
+      }
+  }
+
+  @media (max-width: 979px) {
+      #ucc-fullscreen-button {
+          display: none;
+      }
+  }
+
+  .kwic-toolbar {
+      font-family: Arial;
+  }
+  .iconAlign{
+    vertical-align:middle;
+  }
+
+  .btnContribute{
+    color: #fff;
+    background: rgb(51,80,117);
+  }
+  .btnContribute:hover{
+    color: #fff;
+    background: rgb(51,80,117);
+  }
+  .btnContribute:focus{
+    color: #fff;
+    background: rgb(51,80,117);
+
+  }
+}
+
+
