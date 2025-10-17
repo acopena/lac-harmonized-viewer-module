@@ -424,3 +424,16 @@ lac-harmonized-viewer {
 .layoutoption {
     padding-bottom: 10px;
 }
+
+.contentWarning {
+    position: absolute;
+    background-color: black; 
+    z-index: 9999; 
+    text-align: left; 
+    border: 2px solid black;
+    color: white; 
+    font-size:16px; 
+    justify-content: center; 
+    align-items: center;
+    padding: 80px;
+}

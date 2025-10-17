@@ -46,9 +46,11 @@ export class UccHttpService {
     if (!eCopyitems) {
       return undefined;
     }
-
+    //temp for testin point to localhost
+    //const url = 'http://localhost:5191/api/Colab/GetColabMcwList';  // localhost for testing
+    const url = this.url + "/GetColabMcwList"; // "/ContributionItems";  //production
     let value: HttpResponse = null;
-    const url = this.url + "/ContributionItems";
+    
     const headers = {
       'Content-Type': 'application/json',
       'Accept': '*/*'

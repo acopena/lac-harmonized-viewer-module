@@ -7,20 +7,23 @@
 import { t } from '../services/i18n-service';
 import { setupConfig } from '../global/environment/environment-config';
 import { AppConfig } from '../app.config';
+import { renderIconSize } from "../utils/icon-library";
+import { Component, Element, h } from '@stencil/core';
+
 // This will force to resize the universal viewer back to original width when
 // the document is pdf. 
-export function resizeUniversalViewer(uvMaxWidth: number, isDrawerOpen: boolean ) {
+export function resizeUniversalViewer(uvMaxWidth: number, isDrawerOpen: boolean) {
   const uccWidth = 450;
-  
-  let loadedWidth = uvMaxWidth;  
-  
+
+  let loadedWidth = uvMaxWidth;
+
   setTimeout(() => {
     const uvEl = document.getElementsByClassName('loaded');
     if (uvEl.length > 0) {
       let loadedEl = uvEl[0] as HTMLElement;
       if (!isDrawerOpen) {
         //loadedWidth = Number(loadedEl.style.width.replace('px', '')) - uccWidth;
-        loadedWidth =uvMaxWidth - uccWidth;        
+        loadedWidth = uvMaxWidth - uccWidth;
         loadedEl.style.width = loadedWidth + 'px';
 
         const uvColl = uvEl[0];
@@ -32,12 +35,12 @@ export function resizeUniversalViewer(uvMaxWidth: number, isDrawerOpen: boolean 
 
       }
       else {
-        loadedEl.style.width = loadedWidth + 'px';        
+        loadedEl.style.width = loadedWidth + 'px';
         const uvColl = uvEl[0];
         const uvChild1 = uvColl.children[0] as HTMLElement;
         uvChild1.style.width = loadedWidth + 'px';
         const mainPanelEl = document.getElementById('mainPanel');
-        mainPanelEl.style.width = (loadedWidth-32) + 'px';
+        mainPanelEl.style.width = (loadedWidth - 32) + 'px';
       }
     }
 
@@ -47,9 +50,9 @@ export function resizeUniversalViewer(uvMaxWidth: number, isDrawerOpen: boolean 
     if (leftPanelEl.length > 0) {
       const lfEl = leftPanelEl[0] as HTMLElement;
       const lfwd = lfEl.style.width.replace('px', '');
-      if (!isDrawerOpen) {        
+      if (!isDrawerOpen) {
         contentWd = loadedWidth - Number(lfwd);
-        
+
         let centerEl = document.getElementById('centerPanel');
         centerEl.style.width = contentWd + 'px';
 
@@ -61,8 +64,8 @@ export function resizeUniversalViewer(uvMaxWidth: number, isDrawerOpen: boolean 
           pdfEl.style.width = (contentWd - 10) + 'px';
         }
       }
-      else {       
-        contentWd = loadedWidth -  Number(lfwd);
+      else {
+        contentWd = loadedWidth - Number(lfwd);
         let centerEl = document.getElementById('centerPanel');
         centerEl.style.width = contentWd + 'px';
 
@@ -124,7 +127,7 @@ export async function setKWICCLegend(kwicEcopies: any) {
     let count = 0;
     const intervalId = setInterval(() => {
       count++;
-      if (count >=5000) {
+      if (count >= 5000) {
         clearInterval(intervalId); // Stop the interval after 500 iterations
       }
 
@@ -223,8 +226,225 @@ export function displayLegend(uccContent: boolean, uccContributionList: any, ucc
       }
     }
   }
+}
+
+
+export function displayWarning(warningItems) {
+  let showContentWarning = JSON.parse(localStorage.getItem('showContentWarning'));
+  if (showContentWarning != null) {
+    if (!showContentWarning) {
+      return;
+    }
+  }
+  warningItems.forEach((e) => {
+    let count = 0;
+    const intervalId = setInterval(() => {
+      count++;
+      if (count >= 5000) {
+        clearInterval(intervalId); // Stop the interval after 500 iterations
+      }
+      let wrapEl = document.getElementById(e.eCopy);
+      if (wrapEl == null) {
+        const elUpper = e.eCopy.toUpperCase();
+        wrapEl = document.getElementById(elUpper);
+      }
+      if (wrapEl) {
+        clearInterval(intervalId); // Stop the interval       
+        SetContentWarningOnThumbnail(e.eCopy, true);
+      }
+    }, 100);
+  });
 
 }
+
+export function DisplayContentWarningOnThumbnail(ecopyId: string) {
+  SetContentWarningOnThumbnail(ecopyId, true);
+}
+
+export function SetMainContentWarning(ShowWarning: boolean, idx: number) {
+  const content = document.getElementById('content');
+  const viewerEl = content.getElementsByClassName('viewer');
+  const cwEl = document.getElementById('contentWarning');
+  if (cwEl) {
+    cwEl.remove();
+  }
+
+  viewerEl[0].setAttribute('style', 'display:block;');
+
+  if (ShowWarning) {
+    let contentWarning = document.createElement('div');
+    contentWarning.setAttribute('id', 'contentWarning');
+    contentWarning.setAttribute('style', 'height:100%;width: 100%;');
+    contentWarning.setAttribute('class', 'contentWarning');
+
+    let contentMsg = document.createElement('div');
+    contentMsg.innerHTML = t('contentWarning');
+    contentWarning.appendChild(contentMsg);
+
+    let contentChkbox = document.createElement('input');
+    contentChkbox.setAttribute('id', 'chkContentWrng');
+    contentChkbox.setAttribute('type', 'checkbox');
+    contentChkbox.setAttribute('name', 'contentWarningCheck1');
+    contentChkbox.setAttribute('style', 'cursor:pointer; margin-top:15px');
+    let lbl = document.createElement('label');
+    lbl.setAttribute('for', 'contentWarningCheck');
+    lbl.innerHTML = t('contentWarningChkbox');
+
+    contentWarning.appendChild(contentChkbox);
+    contentWarning.appendChild(lbl);
+
+    let br = document.createElement('br');
+    contentWarning.appendChild(br);
+    contentWarning.appendChild(br);
+
+    let btnDiv = document.createElement('div');
+    btnDiv.setAttribute('style', 'text-align:center;margin-top:25px');
+
+    let btn = document.createElement('button');
+    btn.setAttribute('class', 'btn');
+    btn.setAttribute('id', 'btn_viewContentWarning');
+    btn.setAttribute('style', 'padding:10px;color:black;background-color:white;');
+    btn.innerHTML = t('viewMaterial');
+
+
+    btnDiv.appendChild(btn);
+    contentWarning.appendChild(btnDiv);
+
+    content.prepend(contentWarning);
+    setTimeout(() => {
+      btn.addEventListener('click', handleContentWarning);
+
+    }, 200);
+
+  }
+}
+
+
+function handleContentWarning(e) {
+  let chkBox = document.getElementById('chkContentWrng') as HTMLInputElement;
+
+  if (chkBox.checked) {
+    //Remove content warning on all the thumbnails
+    localStorage.setItem('showContentWarning', 'false');
+    localStorage.setItem('ContentWarningStartTime', new Date().toISOString());
+    const currentIndex = sessionStorage.getItem('UVCurrentIndex');
+    //Remove content warning on the thumbnail
+    setTimeout(() => {
+      let contentWarningList = JSON.parse(sessionStorage.getItem('ContentWarningList'));
+      for (let i = 0; i < contentWarningList.length; i++) {
+        const eCopy = contentWarningList[i].eCopy;
+        console.log(eCopy);
+        removeContentWarningIcon(eCopy);
+      }
+    }, 500);
+
+  }
+  else {
+    const ecopy=sessionStorage.getItem('eCopy');
+    SetContentWarningOnThumbnail(ecopy,false);
+
+    //Remove the item on the Content warning list
+    let contentWarningList = JSON.parse(sessionStorage.getItem('ContentWarningList'));
+    contentWarningList = contentWarningList.filter(item => item.eCopy !== ecopy);
+    console.log(contentWarningList);
+    sessionStorage.setItem('ContentWarningList', JSON.stringify(contentWarningList));
+  }
+
+  //Remove main content warning
+  let cwEl = document.getElementById('contentWarning');
+  console.log(cwEl)
+  if (cwEl) {
+    cwEl.remove();
+  }
+
+}
+
+
+
+function SetContentWarningOnThumbnail(ecopyId: string, ShowWarning: boolean = true) {
+
+  if (ShowWarning) {
+    const eyeId = document.getElementById('eye_' + ecopyId);
+    if (eyeId) {
+      return;
+    }
+  }
+
+  let wrapEl = document.getElementById(ecopyId);
+  if (wrapEl == null) {
+    const elUpper = ecopyId.toUpperCase();
+    wrapEl = document.getElementById(elUpper);
+  }
+  if (wrapEl) {
+    let count = 0;
+    const intervalId = setInterval(() => {
+      count++;
+      if (count >= 2000) {
+        clearInterval(intervalId);
+      }
+      const indicator = wrapEl.getElementsByTagName('img');
+      if (indicator.length > 0) {
+        clearInterval(intervalId); // Stop the interval       
+        if (ShowWarning) {
+          let marginTop = 'margin-top:-20%;';
+          let uccIndicator = wrapEl.querySelector('ucc-indicator');
+          if (uccIndicator) {
+            marginTop = 'margin-top:-50%;';
+          }
+          let iconEyeSlash = renderIconSize('fas', 'eye-slash', '60px');
+          let spanEl = document.createElement('div');
+          spanEl.setAttribute('id', 'eye_' + ecopyId);
+          spanEl.setAttribute('style', 'display:block; position:absolute; margin-left:8%;' + marginTop);
+          spanEl.setAttribute('name', '_cwicon');
+          spanEl.innerHTML = iconEyeSlash;
+          wrapEl.appendChild(spanEl);
+          indicator[0].setAttribute('style', 'opacity: 0.1;');
+        }
+        else {
+          indicator[0].setAttribute('style', 'opacity: 1.0;');
+          let eyeEl = document.getElementById('eye_' + ecopyId);
+          if (eyeEl) {
+            eyeEl.remove();
+          }
+
+        }
+      }
+    }, 100);
+  }
+}
+
+function removeContentWarningIcon(ecopyId: string) {
+  let wrapEl = document.getElementById(ecopyId);
+  if (wrapEl == null) {
+    const elUpper = ecopyId.toUpperCase();
+    wrapEl = document.getElementById(elUpper);
+  }
+  console.log(wrapEl);
+  if (wrapEl) {
+    let count = 0;
+    const intervalId = setInterval(() => {
+      count++;
+      if (count >= 2000) {
+        clearInterval(intervalId);
+      }
+      const indicator = wrapEl.getElementsByTagName('img');
+      console.log(indicator);
+      if (indicator.length > 0) {
+        clearInterval(intervalId); // Stop the interval       
+        indicator[0].setAttribute('style', 'opacity: 1.0;');
+        console.log(indicator[0]);
+        let eyeEl = document.getElementById('eye_' + ecopyId);
+        console.log(eyeEl);
+        if (eyeEl) {
+          eyeEl.remove();
+        }
+      }
+    }, 500);
+  }
+}
+
+
+
 
 //This will add and display the UCC icon on each thumbnail.
 function blueTag(e) {
@@ -251,9 +471,6 @@ export async function hvAppConfig(hvEnv: string) {
     centralApi: 'https://central.bac-lac.gc.ca/',
     recordUrl: 'https://recherche-collection-search.bac-lac.gc.ca/',
     redirect_uri: 'https://www.bac-lac.gc.ca/_layouts/15/Proxy/Proxy.aspx?u=https://lacbac03.blob.core.windows.net/dev/callback.html',
-    //manifestUrl: 'https://digitalmanifest.bac-lac.gc.ca/DigitalManifest/',
-    //manifestFallBackUrl: 'https://digitalmanifest.bac-lac.gc.ca/DigitalManifest/',
-
     manifestUrl: 'https://digitalmanifest-d.bac-lac.gc.ca/DigitalManifest/',
     manifestFallBackUrl: 'https://digitalmanifest-d.bac-lac.gc.ca/DigitalManifest/',
     centralImgUrl: 'https://central.bac-lac.gc.ca/.gen',
@@ -277,13 +494,11 @@ export async function hvAppConfig(hvEnv: string) {
     env: 'dev',
     authority: '//id.bac-lac.gc.ca/',
     uccApi: 'https://colabapi-d.dev.bac-lac.gc.ca/api/Colab',
-    //uccApi: 'https://colabapi.bac-lac.gc.ca/api/Colab',
     centralApi: 'https://central-d.dev.bac-lac.gc.ca/',
     recordUrl: 'https://recherche-collection-search.bac-lac.gc.ca/',
     redirect_uri: 'https://dev-www.bac-lac.gc.ca/eng/_layouts/15/Proxy/Proxy.aspx?u=https://lacbac03.blob.core.windows.net/dev/callback.html',
     manifestUrl: 'https://digitalmanifest-d.bac-lac.gc.ca/DigitalManifest/',
     manifestFallBackUrl: 'https://digitalmanifest-d.bac-lac.gc.ca/DigitalManifest/',
-    //centralImgUrl: 'https://central.bac-lac.gc.ca/.gen',
     centralImgUrl: 'https://central-d.dev.bac-lac.gc.ca/.gen',
     colabUrl: "https://ucc-d.dev.bac-lac.gc.ca/"
   };

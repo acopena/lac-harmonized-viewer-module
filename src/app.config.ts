@@ -47,9 +47,12 @@ export const AppConfig: AppConfig = {
         { id: 29, abbr: 'BON', code: 'CarPapBooOfNeg', codefr:'carpapbooneg',sourceCode: 36 },
         { id: 30, abbr: 'LAS', code: 'CarPapLoyAndSol', codefr:'carpaploysolbrit',sourceCode: 37 },
         { id: 41, abbr: 'OIR', code: 'oic-register', codefr:'oic-register',sourceCode: 41 },
-        { id: 49, abbr: 'PAS', code: 'PasLisAndBorEnt', codefr:'paslisandborent',sourceCode: 41 },
+        { id: 49, abbr: 'PAS', code: 'PasLisAndBorEnt', codefr:'paslisandborent',sourceCode: 49 },
         { id: 50, abbr: 'NAT', code: 'natrec', codefr:'natrec',sourceCode: 50 },
-        
+        { id: 51, abbr: 'IGI', code: 'ImmAtGroIle', codefr:'ImmAtGroIle',sourceCode: 51 },        
+        { id: 52, abbr: 'UCN', code: 'UppCanNatRec', codefr:'UppCanNatRec',sourceCode: 52 },
+        { id: 53, abbr: 'DOM', code: 'ImmPorDom', codefr:'ImmPorDom',sourceCode: 53 },
+        { id: 54, abbr: 'MTL', code: 'MtlEmiSocPasBoo', codefr:'MtlEmiSocPasBoo',sourceCode: 54 }        
     ],
 
     manifestUri: env.get('manifestUrl'),

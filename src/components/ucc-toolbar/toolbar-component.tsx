@@ -24,6 +24,7 @@ export class ToolbarComponent {
     @Prop() items: Item[];
     @Prop() isUcc: boolean = false;
     @Prop() manifestLoaded: boolean = false;
+    @Prop() isContentWarning : boolean = false;
 
     @State() ecopy: MyAppState["contribution"]["ecopy"]
     @State() isDrawerOpen: MyAppState["contribution"]["isDrawerOpen"]
@@ -233,6 +234,7 @@ export class ToolbarComponent {
         }
         const validDownload = this.validDatasetInDownload(this.referenceSystem.toLocaleLowerCase());
 
+        this.isContentWarning = true;
 
         let icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" fill="none" stroke="currentcolor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">';
         icon += '<path d="M2 18 L18 2 30 2 30 14 14 30 Z" fill="#fff"></path>';
@@ -282,23 +284,6 @@ export class ToolbarComponent {
                             </div>
                         }
 
-
-
-                        {/* <div class="level-item">
-                        <button id="ucc-fullscreen-button"
-                                type="button"
-                                role="button"
-                                class="btn btn-default"
-                                title={this.isFullscreen ? t('toolbarFullscreenExit') : t('toolbarFullscreenEnter')}
-                                onClick={this.fullscreenToggle.emit}>
-                            {this.isFullscreen
-                                ? <span innerHTML={`${renderIcon("fas", "compress")}`}></span>
-                                : <span innerHTML={`${renderIcon("fas", "expand")}`}></span>
-                            }
-                            <span class="wb-inv" aria-hidden="true">{this.isFullscreen ? t('toolbarFullscreenExit') : t('toolbarFullscreenEnter')}</span>
-                        </button>
-                    </div> */}
-
                         {!this.hideContributeButton && validDataset &&
                             this.viewportType && validType && exemptEcopyForContribution &&
                             <div class="level-item">
@@ -315,29 +300,7 @@ export class ToolbarComponent {
                                 </button>
                             </div>
                         }
-
-                        {/* {!this.hideContributeButton &&
-                            this.viewportType && this.viewportType !== "pdf" &&
-                            <div class="level-item">
-                                <button
-                                    type="button"
-                                    role="button"
-                                    class="btn btnContribute"
-                                    title={this.isDrawerOpen ? t('toolbarContributeClose') : t('toolbarContributeOpen')}
-                                    onClick={this.handleContributeClick.bind(this)}>
-                                    <span class='iconAlign' innerHTML={icon}></span>
-                                    &nbsp;&nbsp;
-                                    {this.isDrawerOpen ? t('toolbarContributeClose') : t('toolbarContributeOpen')}
-                                </button>
-                            </div>
-                        }  */}
-
-                        {/* { kwicImg ?
-                        <span class="kwic-toolbar"><img src="http://www.clker.com/cliparts/m/I/n/1/T/P/orange-dot-md.png" width="15" /> {t('objectsWithOrangeCircle')}</span> :
-                        ""
-                    } */}
-
-
+                 
                     </div>
 
                     <div class="level-right">

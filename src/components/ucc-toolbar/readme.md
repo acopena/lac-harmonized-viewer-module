@@ -10,6 +10,7 @@
 | Property               | Attribute                | Description | Type      | Default                                         |
 | ---------------------- | ------------------------ | ----------- | --------- | ----------------------------------------------- |
 | `hideContributeButton` | `hide-contribute-button` |             | `boolean` | `false`                                         |
+| `isContentWarning`     | `is-content-warning`     |             | `boolean` | `false`                                         |
 | `isUcc`                | `is-ucc`                 |             | `boolean` | `false`                                         |
 | `itemNumber`           | `item-number`            |             | `string`  | `undefined`                                     |
 | `items`                | --                       |             | `Item[]`  | `undefined`                                     |

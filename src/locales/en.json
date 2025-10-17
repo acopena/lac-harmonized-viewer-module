@@ -181,5 +181,9 @@
   "guidelines": "Getting started",
   "coLabPanel":"Co-Lab panel",
   "english":"English",
-  "french":"French"
+  "french":"French",
+
+  "viewMaterial":"View material",
+  "contentWarning":"<b>Content warning</b> <br/><br/>These archival records may include content and language that is upsetting or triggering. The record reflects legacies of colonial harm, including offensive or discriminatory content. <a href='https://www.canada.ca/en/library-archives/corporate/transparency/notices-collections.html#a2' target='_blank'> Learn more about how we approach content warnings at LAC.</a><br/><br/>If at any time you require support, please call:<ul><li>Residential School Survivor Support Line at 1-866-925-4419</li><li>The Hope for Wellness Helpline offers immediate help to all Indigenous people across Canada 1-855-242-3310</li></ul>",
+  "contentWarningChkbox":"&nbsp; &nbsp;Show me this type of materials without a warning for the next 30 minutes"
 }

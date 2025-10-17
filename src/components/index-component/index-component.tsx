@@ -10,9 +10,13 @@ import { AppConfig } from '../../app.config';
 import { getUser } from '../../services/permission-service';
 import { Item } from '../../types/harmonized-viewer';
 import { UccHttpService } from '../../services/ucc-http-service';
-import { resizeUniversalViewer, setKWICCLegend, galleryKWIC_UCC_Icon, displayLegend, hvAppConfig } from "../../utils/colab";
-//import { rewindAndForwardControls, resetVideoScreen } from "../../utils/video-service";
+import {
+  resizeUniversalViewer, setKWICCLegend, galleryKWIC_UCC_Icon, displayLegend,
+  hvAppConfig, SetMainContentWarning, displayWarning
+} from "../../utils/colab";
+
 import { loadUniversalViewer } from "../../services/UniversalViewer-service";
+
 
 @Component({
   tag: 'lac-harmonized-viewer',
@@ -83,7 +87,8 @@ export class IndexComponent {
 
   private initialItemLoad: boolean = true;
   private uccContributionList = [];
-  private manifestData: any;  
+  private contentWarningList = [];
+  private manifestData: any;
   private init_contentType = '';
   private initUccLoad = true;
 
@@ -175,18 +180,21 @@ export class IndexComponent {
       await this.getItems(canvases);
 
       let ctr = 0;
-      const intervalId1 = setInterval(() => {
+      const intervalId1 = setInterval(async () => {
         ctr++;
         if (ctr >= 5000) {
           clearInterval(intervalId1);
         }
         if (this.items) {
           clearInterval(intervalId1); // Stop the interval 
+          //await this.getUccContributionList();
           this.getUVCurrentIndex(true);
+
         }
       }, 100);
-
     }
+    
+  
   }
 
 
@@ -229,12 +237,35 @@ export class IndexComponent {
         currentUrl = currentUrl + "?ecopy=" + this.ecopy;
       }
     }
-    this.updateURLParam(currentUrl);    
+    this.updateURLParam(currentUrl);
     await this.getUVCurrentIndex(true);
+
+    //Toggle content warning
+    setTimeout(() => {
+      let showContentWarning = JSON.parse(localStorage.getItem('showContentWarning'));
+      if (showContentWarning == null) {
+        const currentIdx: number = parseInt(localStorage.getItem('UVCurrentIndex'));
+        const contenteWarningListSession = JSON.parse(sessionStorage.getItem('ContentWarningList'));
+        if (contenteWarningListSession.length > 0) {
+          const contentWarning = contenteWarningListSession.find(s => s.eCopy.toLowerCase() == ecopy.toLowerCase());
+          if (contentWarning != null) {
+            SetMainContentWarning(true, currentIdx);
+          }
+          else {
+            SetMainContentWarning(false, currentIdx);
+
+          }
+        }
+      }
+    }, 100);
+
+
   }
 
-  updateURLParam(url:string) {  
-    if ((url.toLowerCase().indexOf('/result') == -1) ) {
+
+
+  updateURLParam(url: string) {
+    if ((url.toLowerCase().indexOf('/result') == -1)) {
       window.history.pushState('data', 'title', url);
     }
   }
@@ -280,11 +311,6 @@ export class IndexComponent {
         if (this.init_contentType == '') {
           this.init_contentType = this.isNullOrEmpty(this.viewportType);
         }
-        // if (this.init_contentType.toLowerCase() == 'video') {
-        //   rewindAndForwardControls();
-        // }
-       // console.log(this.formatType.toLowerCase() + ' - ' + newFormatType.toLowerCase());
-
         if (this.formatType.toLowerCase() != newFormatType.toLowerCase()) {
           if (this.isDrawerOpen) {
             if (newFormatType.toLowerCase() == 'document') {
@@ -297,6 +323,8 @@ export class IndexComponent {
         if (this.initialItemLoad) {
           await this.setEventListeners(false);
         }
+
+
 
       }, 1000);
 
@@ -347,13 +375,13 @@ export class IndexComponent {
     else {
       if (this.items.length > 0) {
         cEcopy = this.geteCopyFromItems(this.ecopy);
-        
+
         //console.log('this.initUccLoad:' + this.initUccLoad);
         if (this.initUccLoad) {
           this.uccToggleContribution();
           this.initUccLoad = false;
         }
-      
+
       }
     }
     return cEcopy;
@@ -463,48 +491,56 @@ export class IndexComponent {
       let myObj = document.getElementById(thumb);
       if (myObj != null) {
         clearInterval(intervalId);
-        const wrapId = myObj.getElementsByClassName('wrap')[0];      
-        myObj.addEventListener('click', event => {
-          this.setCurrentEcopyFromThumbEvent(wrapId.id)
-        });
-       
-        if (index == 0) {
-          let legend = document.getElementById('legend');
-          legend.innerHTML = '';
-          await setKWICCLegend(this.kwicEcopies);
-          await this.getUccContributionList();
-          var tabEl = document.querySelector('button[data-bs-toggle="tab"]');
-          if (tabEl != null) {
-            tabEl.addEventListener('shown.bs.tab', function (event) {
-              event.target    // newly activated tab        
-            })
+        const wrapId = myObj.getElementsByClassName('wrap')[0];
+        if (wrapId.id) {
+          if (triggerEvent) {
+            myObj.addEventListener('click', event => {             
+              this.setCurrentEcopyFromThumbEvent(wrapId.id)
+
+            });
           }
-        }
 
-        if (triggerEvent) {
-          if (index >= (this.items.length - 1) && this.initialItemLoad) {
-            for (let x = 0; x < this.items.length; x++) {
-              const xItem = this.items[x];
-              if (xItem.id == this.ecopy) {
-                const eventClick = document.getElementById(this.ecopy);
-                if (eventClick) {
-                  setTimeout(() => {
-                    eventClick.click();
-                  }, 500);
+          if (index == 0 && triggerEvent) {
+            let legend = document.getElementById('legend');
+            legend.innerHTML = '';
+            await setKWICCLegend(this.kwicEcopies);
+            await this.getUccContributionList();
+            var tabEl = document.querySelector('button[data-bs-toggle="tab"]');
+            if (tabEl != null) {
+              tabEl.addEventListener('shown.bs.tab', function (event) {
+                event.target    // newly activated tab        
+              })
+            }
+          }
 
+          if (triggerEvent) {
+            if (index >= (this.items.length - 1) && this.initialItemLoad) {
+              for (let x = 0; x < this.items.length; x++) {
+                const xItem = this.items[x];
+                if (xItem.id == this.ecopy) {
+                  const eventClick = document.getElementById(this.ecopy);
+                  if (eventClick) {
+                    setTimeout(() => {
+                      eventClick.click();
+                    }, 500);
+
+                  }
+                  break;
                 }
-                break;
               }
             }
           }
         }
+
+
       }
     }, 100);
   }
 
-  async setEventListeners(triggerEvent : boolean = false) {
+  async setEventListeners(triggerEvent: boolean = false) {
     this.items.forEach(async (element, index) => {
       await this.thumbEventListener(index, triggerEvent);
+
     });
 
     //add eventListener to imgBtn
@@ -519,6 +555,7 @@ export class IndexComponent {
                 const currentItem = sessionStorage.getItem('UVCurrentIndex');
                 const newEcopy = this.items[currentItem].id;
                 this.setCurrentEcopyFromThumbEvent(newEcopy);
+
               }, 100);
 
             })
@@ -552,6 +589,7 @@ export class IndexComponent {
         galleryKWIC_UCC_Icon(this.kwicEcopies, this.items, this.uccContributionList);
       })
     }
+
   }
 
   async getItems(canvasList: any[]) {
@@ -852,17 +890,24 @@ export class IndexComponent {
         "eCopies": eCopyList
       });
 
+      
+      sessionStorage.removeItem('ContentWarningList');
       const uccService = new UccHttpService()
       await uccService.getUccContributionItems(eCopyData)
         .then((response) => {
           if (response.status === 200) {
-            this.uccContributionList = response.data;
+            var mcwList = response.data;           
+            this.uccContributionList = mcwList.withContributions;
+            this.contentWarningList = mcwList.contentWarnings;          
+            if (this.contentWarningList.length > 0) {
+              sessionStorage.setItem('ContentWarningList', JSON.stringify(this.contentWarningList));
+            }
+
             for (let x = 0; x < this.uccContributionList.length; x++) {
               this.uccContributionList[x] = this.uccContributionList[x].toLowerCase();
             }
             this.hasUccContent = this.uccContributionList.length > 0 ? true : false;
             const thumbEcopy = this.uccContributionList[0];
-
             if (this.isUcc) {
               if (this.hasUccContent) {
                 let count = 0;
@@ -897,16 +942,23 @@ export class IndexComponent {
                   if (objEcopy != null) {
                     clearInterval(intervalId); // Stop the interval                  
                     displayLegend(this.hasUccContent, this.uccContributionList);
-
                   }
                 }, 100);
               }
             }
+
+            if (this.contentWarningList.length > 0) {
+              displayWarning(this.contentWarningList);
+            }
+
           }
-        })
+        });
+
     } catch (e) {
       this.uccContributionList = [];
       this.hasUccContent = false;
+      this.contentWarningList = [];
+
     }
   }
 

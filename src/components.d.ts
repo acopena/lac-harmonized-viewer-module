@@ -8,6 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Item } from "./types/harmonized-viewer";
 import { FormOrientationOption } from "./models/form-orientation";
 export namespace Components {
+    interface ContentWarnings {
+        "ecopy": string;
+        "itemNumber": string;
+        "url": string;
+    }
     interface CustomVideo {
         "contentType": string;
         "url": string;
@@ -173,6 +178,7 @@ export namespace Components {
     }
     interface UccToolbar {
         "hideContributeButton": boolean;
+        "isContentWarning": boolean;
         "isUcc": boolean;
         "itemNumber": string;
         "items": Item[];
@@ -199,6 +205,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLContentWarningsElement extends Components.ContentWarnings, HTMLStencilElement {
+    }
+    var HTMLContentWarningsElement: {
+        prototype: HTMLContentWarningsElement;
+        new (): HTMLContentWarningsElement;
+    };
     interface HTMLCustomVideoElement extends Components.CustomVideo, HTMLStencilElement {
     }
     var HTMLCustomVideoElement: {
@@ -356,6 +368,7 @@ declare global {
         new (): HTMLUccUserProfileElement;
     };
     interface HTMLElementTagNameMap {
+        "content-warnings": HTMLContentWarningsElement;
         "custom-video": HTMLCustomVideoElement;
         "digilab-banner": HTMLDigilabBannerElement;
         "digilab-label": HTMLDigilabLabelElement;
@@ -385,6 +398,11 @@ declare global {
     }
 }
 declare namespace LocalJSX {
+    interface ContentWarnings {
+        "ecopy"?: string;
+        "itemNumber"?: string;
+        "url"?: string;
+    }
     interface CustomVideo {
         "contentType"?: string;
         "url"?: string;
@@ -551,6 +569,7 @@ declare namespace LocalJSX {
     }
     interface UccToolbar {
         "hideContributeButton"?: boolean;
+        "isContentWarning"?: boolean;
         "isUcc"?: boolean;
         "itemNumber"?: string;
         "items"?: Item[];
@@ -577,6 +596,7 @@ declare namespace LocalJSX {
     interface UccUserProfile {
     }
     interface IntrinsicElements {
+        "content-warnings": ContentWarnings;
         "custom-video": CustomVideo;
         "digilab-banner": DigilabBanner;
         "digilab-label": DigilabLabel;
@@ -609,6 +629,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "content-warnings": LocalJSX.ContentWarnings & JSXBase.HTMLAttributes<HTMLContentWarningsElement>;
             "custom-video": LocalJSX.CustomVideo & JSXBase.HTMLAttributes<HTMLCustomVideoElement>;
             "digilab-banner": LocalJSX.DigilabBanner & JSXBase.HTMLAttributes<HTMLDigilabBannerElement>;
             "digilab-label": LocalJSX.DigilabLabel & JSXBase.HTMLAttributes<HTMLDigilabLabelElement>;
