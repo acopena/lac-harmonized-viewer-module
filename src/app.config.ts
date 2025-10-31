@@ -46,6 +46,7 @@ export const AppConfig: AppConfig = {
         { id: 28, abbr: 'W12', code: 'War1812', codefr:'guerre1821',sourceCode: 34 },        
         { id: 29, abbr: 'BON', code: 'CarPapBooOfNeg', codefr:'carpapbooneg',sourceCode: 36 },
         { id: 30, abbr: 'LAS', code: 'CarPapLoyAndSol', codefr:'carpaploysolbrit',sourceCode: 37 },
+        { id: 35, abbr: 'MBD', code: 'MarBonAndLic', codefr:'marbonandlic',sourceCode: 35 },
         { id: 41, abbr: 'OIR', code: 'oic-register', codefr:'oic-register',sourceCode: 41 },
         { id: 49, abbr: 'PAS', code: 'PasLisAndBorEnt', codefr:'paslisandborent',sourceCode: 49 },
         { id: 50, abbr: 'NAT', code: 'natrec', codefr:'natrec',sourceCode: 50 },

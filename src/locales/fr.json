@@ -184,7 +184,7 @@
   "english":"Anglais",
   "french":"Français",
 
-  "viewMaterial":"View material",
-  "contentWarning":"<b>Content warning</b> <br/><br/>These archival records may include content and language that is upsetting or triggering. The record reflects legacies of colonial harm, including offensive or discriminatory content. Learn more about how we approach content warnings at LAC.<br/><br/>If at any time you require support, please call:<ul><li>Residential School Survivor Support Line at 1-866-925-4419</li><li>The Hope for Wellness Helpline offers immediate help to all Indigenous people across Canada 1-855-242-3310</li></ul>",
-  "contentWarningChkbox":"&nbsp; &nbsp;Show me this type of materials without a warning for the next 30 minutes"
+  "viewMaterial":"Afficher",
+  "contentWarning":"<b>Avertissement sur le contenu</b><br/><br/>Cette notice renferme de la terminologie et des contenus perturbants risquant de déclencher des réactions. Ses aspects offensants ou discriminatoires témoignent de l’héritage des préjudices coloniaux.<br/><br/>Pour obtenir de l’aide en tout temps, téléphonez à :<ul><li>a ligne d’écoute téléphonique nationale concernant les pensionnats autochtones (1-866-925-4419)</li><li>la ligne d’écoute d’espoir pour le mieux-être, qui offre de l’aide immédiate à tous les Autochtones au Canada (1-855-242-3310)</li></ul>",
+  "contentWarningChkbox":"&nbsp; &nbsp;Afficher ce type de matériel sans avertissement pendant les 30 prochaines minutes."
 }

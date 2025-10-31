@@ -153,14 +153,11 @@ export class IndexComponent {
       return;
     }
 
-    // window.addEventListener('resize', () => {
-    //   resetVideoScreen(this.formatType);
-    // });
-
     const manifestFallBackUrl = this.getManifestFallBackUri(referenceSystem, this.itemNumber);
     const uccService = new UccHttpService()
     var dataItems = await uccService.getManifest(manifestFallBackUrl, manifestFallBackUrl);
     this.manifestData = dataItems.data;
+
 
     //If dataItems.data is empty remove HV
     if (dataItems.data == '') {
@@ -168,33 +165,29 @@ export class IndexComponent {
       hvViewer[0].remove();
       return;
     }
-    else {
-      let canvases = null;
-      if (this.manifestData['sequences'] == undefined) {
-        canvases = this.manifestData['items'];
-      }
-      else {
-        canvases = this.manifestData['sequences'][0].canvases;
-      }
-      await loadUniversalViewer(dataItems.url, this.isUcc, this.ecopy);
-      await this.getItems(canvases);
-
-      let ctr = 0;
-      const intervalId1 = setInterval(async () => {
-        ctr++;
-        if (ctr >= 5000) {
-          clearInterval(intervalId1);
-        }
-        if (this.items) {
-          clearInterval(intervalId1); // Stop the interval 
-          //await this.getUccContributionList();
-          this.getUVCurrentIndex(true);
-
-        }
-      }, 100);
+    let canvases = null;
+    if (this.manifestData['sequences'] == undefined) {
+      canvases = this.manifestData['items'];
     }
-    
-  
+    else {
+      canvases = this.manifestData['sequences'][0].canvases;
+    }
+
+    await this.getItems(canvases);
+    await this.getContributionAndWarningList();
+    await loadUniversalViewer(dataItems.url, this.isUcc, this.ecopy);
+
+    let ctr = 0;
+    const itv = setInterval(async () => {
+      ctr++;
+      if (ctr >= 10000) {
+        clearInterval(itv);
+      }
+      if (this.items) {
+        clearInterval(itv);
+        this.getUVCurrentIndex(true);
+      }
+    }, 10);
   }
 
 
@@ -246,18 +239,20 @@ export class IndexComponent {
       if (showContentWarning == null) {
         const currentIdx: number = parseInt(localStorage.getItem('UVCurrentIndex'));
         const contenteWarningListSession = JSON.parse(sessionStorage.getItem('ContentWarningList'));
-        if (contenteWarningListSession.length > 0) {
-          const contentWarning = contenteWarningListSession.find(s => s.eCopy.toLowerCase() == ecopy.toLowerCase());
-          if (contentWarning != null) {
-            SetMainContentWarning(true, currentIdx);
-          }
-          else {
-            SetMainContentWarning(false, currentIdx);
+        if (contenteWarningListSession != null) {
+          if (contenteWarningListSession.length > 0) {
+            const contentWarning = contenteWarningListSession.find(s => s.eCopy.toLowerCase() == ecopy.toLowerCase());
+            if (contentWarning != null) {
+              SetMainContentWarning(true, currentIdx);
+            }
+            else {
+              SetMainContentWarning(false, currentIdx);
 
+            }
           }
         }
       }
-    }, 100);
+    }, 10);
 
 
   }
@@ -270,19 +265,33 @@ export class IndexComponent {
     }
   }
 
+  //This will update the url ecopy parameter on initial load
+  //Albert Opena
   async setCurrentEcopyInitial(ecopy: string) {
-    let currentUrl = window.location.href;
+    let currentUrl = window.location.href.toLowerCase();
     const url = new URL(currentUrl);
     const ecopyValue = url.searchParams.get('ecopy');
-    if (ecopyValue != null) {
-      currentUrl = currentUrl.replace("=" + ecopyValue, "=" + ecopy);
+    let hasEcopy = false;
+    hasEcopy = currentUrl.indexOf('ecopy=') > -1 ? true : false;
+    let hasParam = false;
+    hasParam = currentUrl.indexOf('?') > -1 ? true : false;
+
+    if (hasEcopy) {
+      if (ecopyValue != null) {
+        currentUrl = currentUrl.replace("ecopy=" + ecopyValue, "ecopy=" + ecopy);
+      }
+      else {
+        currentUrl = currentUrl.replace("ecopy=", "ecopy=" + ecopy);
+      }
+
     }
     else {
-      if (currentUrl.indexOf('?') > -1) {
+      if (hasParam) {
         currentUrl = currentUrl + "&ecopy=" + this.ecopy;
       }
       else {
         currentUrl = currentUrl + "?ecopy=" + this.ecopy;
+
       }
     }
     window.history.pushState('data', 'title', currentUrl);
@@ -294,7 +303,7 @@ export class IndexComponent {
     setTimeout(async () => {
       const cEcopy = await this.getCurrentECopy();
       this.currentItem = cEcopy;
-      const viewportType: string = cEcopy['contentType'];
+      //const viewportType: string = cEcopy['contentType'];
       const itemCount: number = this.items.length;
       if (cEcopy.id) {
         sessionStorage.setItem('eCopy', cEcopy.id.toLowerCase());
@@ -304,7 +313,6 @@ export class IndexComponent {
       this.formatType = this.isNullOrEmpty(this.formatType);
       this.init_contentType = this.isNullOrEmpty(this.formatType);
       newFormatType = this.isNullOrEmpty(cEcopy.contentType);
-      // this.initialItemLoad = true;
       this.itemViewed(this.currentItem, itemCount, newFormatType, this.initialItemLoad);
 
       setTimeout(async () => {
@@ -323,13 +331,8 @@ export class IndexComponent {
         if (this.initialItemLoad) {
           await this.setEventListeners(false);
         }
-
-
-
-      }, 1000);
-
-
-    }, 100);
+      }, 10);
+    }, 50);
   }
 
   isNullOrEmpty(e?: any) {
@@ -352,6 +355,9 @@ export class IndexComponent {
     cEcopy = this.items[0];
     if (urlEcopy) {
       this.ecopy = urlEcopy;
+    }
+    if (this.ecopy == null || this.ecopy == '') {
+      this.ecopy = cEcopy.id;
     }
     if (!this.isUcc) {
       if (urlEcopy != null) {
@@ -484,7 +490,7 @@ export class IndexComponent {
     let count = 0;
     const intervalId = setInterval(async () => {
       count++;
-      if (count >= 5000) {
+      if (count >= 10000) {
         clearInterval(intervalId); // Stop the interval after 500 iterations
       }
       let thumb = 'thumb-' + index.toString();
@@ -494,7 +500,7 @@ export class IndexComponent {
         const wrapId = myObj.getElementsByClassName('wrap')[0];
         if (wrapId.id) {
           if (triggerEvent) {
-            myObj.addEventListener('click', event => {             
+            myObj.addEventListener('click', event => {
               this.setCurrentEcopyFromThumbEvent(wrapId.id)
 
             });
@@ -520,10 +526,15 @@ export class IndexComponent {
                 if (xItem.id == this.ecopy) {
                   const eventClick = document.getElementById(this.ecopy);
                   if (eventClick) {
+                    //this will immidiately trigger to avoid showing the items first when it has content warning
                     setTimeout(() => {
                       eventClick.click();
-                    }, 500);
+                    }, 10);
 
+                    //This will ensure that the thumb is clicked after 500ms
+                    setTimeout(() => {
+                      eventClick.click();
+                    },500);
                   }
                   break;
                 }
@@ -531,10 +542,8 @@ export class IndexComponent {
             }
           }
         }
-
-
       }
-    }, 100);
+    }, 10);
   }
 
   async setEventListeners(triggerEvent: boolean = false) {
@@ -556,7 +565,7 @@ export class IndexComponent {
                 const newEcopy = this.items[currentItem].id;
                 this.setCurrentEcopyFromThumbEvent(newEcopy);
 
-              }, 100);
+              }, 10);
 
             })
           }
@@ -876,7 +885,7 @@ export class IndexComponent {
     return eCopy
   }
 
-  async getUccContributionList() {
+  async getContributionAndWarningList() {
     try {
       let eCopyList: string[] = [];
 
@@ -889,77 +898,76 @@ export class IndexComponent {
       var eCopyData = JSON.stringify({
         "eCopies": eCopyList
       });
-
-      
       sessionStorage.removeItem('ContentWarningList');
       const uccService = new UccHttpService()
       await uccService.getUccContributionItems(eCopyData)
         .then((response) => {
           if (response.status === 200) {
-            var mcwList = response.data;           
+            var mcwList = response.data;
             this.uccContributionList = mcwList.withContributions;
             this.contentWarningList = mcwList.contentWarnings;          
+
             if (this.contentWarningList.length > 0) {
               sessionStorage.setItem('ContentWarningList', JSON.stringify(this.contentWarningList));
             }
-
             for (let x = 0; x < this.uccContributionList.length; x++) {
               this.uccContributionList[x] = this.uccContributionList[x].toLowerCase();
             }
             this.hasUccContent = this.uccContributionList.length > 0 ? true : false;
-            const thumbEcopy = this.uccContributionList[0];
-            if (this.isUcc) {
-              if (this.hasUccContent) {
-                let count = 0;
-                const intervalId = setInterval(() => {
-                  count++;
-                  if (count >= 1000) {
-                    clearInterval(intervalId); // Stop the interval after 500 iterations
-                  }
-                  const thumbeCopy = document.getElementById(this.ecopy);
-                  if (thumbeCopy != null) {
-                    clearInterval(intervalId);
-                    displayLegend(this.hasUccContent, this.uccContributionList);
-                  }
-                }, 100);
-
-              }
-            }
-            else {
-              if (this.hasUccContent) {
-                let count = 0;
-                const intervalId = setInterval(() => {
-                  count++;
-                  if (count >= 2000) {
-                    clearInterval(intervalId); // Stop the interval after 500 iterations
-                  }
-                  let objEcopy = document.getElementById(thumbEcopy);
-                  if (objEcopy == null) {
-                    const upEcopy = thumbEcopy.toUpperCase();
-                    objEcopy = document.getElementById(upEcopy);
-                  }
-
-                  if (objEcopy != null) {
-                    clearInterval(intervalId); // Stop the interval                  
-                    displayLegend(this.hasUccContent, this.uccContributionList);
-                  }
-                }, 100);
-              }
-            }
-
-            if (this.contentWarningList.length > 0) {
-              displayWarning(this.contentWarningList);
-            }
-
           }
         });
-
     } catch (e) {
       this.uccContributionList = [];
       this.hasUccContent = false;
       this.contentWarningList = [];
-
     }
+  }
+
+  async getUccContributionList() {
+
+    if (this.contentWarningList.length > 0) {
+      displayWarning(this.contentWarningList);
+    }
+    const thumbEcopy = this.uccContributionList[0];
+    if (this.isUcc) {
+      if (this.hasUccContent) {
+        let count = 0;
+        const intervalId = setInterval(() => {
+          count++;
+          if (count >= 1000) {
+            clearInterval(intervalId); // Stop the interval after 500 iterations
+          }
+          const thumbeCopy = document.getElementById(this.ecopy);
+          if (thumbeCopy != null) {
+            clearInterval(intervalId);
+            displayLegend(this.hasUccContent, this.uccContributionList);
+          }
+        }, 100);
+
+      }
+    }
+    else {
+      if (this.hasUccContent) {
+        let count = 0;
+        const intervalId = setInterval(() => {
+          count++;
+          if (count >= 2000) {
+            clearInterval(intervalId); // Stop the interval after 500 iterations
+          }
+          let objEcopy = document.getElementById(thumbEcopy);
+          if (objEcopy == null) {
+            const upEcopy = thumbEcopy.toUpperCase();
+            objEcopy = document.getElementById(upEcopy);
+          }
+
+          if (objEcopy != null) {
+            clearInterval(intervalId); // Stop the interval                  
+            displayLegend(this.hasUccContent, this.uccContributionList);
+          }
+        }, 100);
+      }
+    }
+
   }
 
   loadRecaptcha() {

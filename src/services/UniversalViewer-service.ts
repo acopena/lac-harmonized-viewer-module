@@ -88,7 +88,9 @@ export async function loadUniversalViewer(manifest: any, isUcc: boolean, eCopy: 
   let content = ' var urlAdaptor = new UV.IIIFURLAdaptor(); ';
   content += 'uv = UV.init("uv", {manifest: "' + manifest + '",embedded: true, locales:[{  name: "' + newLanguage + '"}] });';
   content += ' urlAdaptor.bindTo(uv); '
-  content += ' uv.on("configure", function ({ config, cb }) { cb({options: ' + options + '});}); '
+  content += ' uv.on("configure", function ({ config, cb }) { cb({options: ' + options + '});}); ';
+  console.log('Load UV Options: ');
+ 
   
   uvScript.innerHTML = content;
   document.head.appendChild(uvScript);

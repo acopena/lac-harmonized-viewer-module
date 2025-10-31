@@ -236,12 +236,16 @@ export function displayWarning(warningItems) {
       return;
     }
   }
+
+  let warningItemCount = 0;
+
   warningItems.forEach((e) => {
     let count = 0;
+    warningItemCount++;
     const intervalId = setInterval(() => {
       count++;
-      if (count >= 5000) {
-        clearInterval(intervalId); // Stop the interval after 500 iterations
+      if (count >= 10000) {
+        clearInterval(intervalId);    // Stop the interval after 500 iterations
       }
       let wrapEl = document.getElementById(e.eCopy);
       if (wrapEl == null) {
@@ -249,10 +253,10 @@ export function displayWarning(warningItems) {
         wrapEl = document.getElementById(elUpper);
       }
       if (wrapEl) {
-        clearInterval(intervalId); // Stop the interval       
-        SetContentWarningOnThumbnail(e.eCopy, true);
+        clearInterval(intervalId);    // Stop the interval       
+        SetContentWarningOnThumbnail(e.eCopy, true, warningItemCount);
       }
-    }, 100);
+    }, 50);
   });
 
 }
@@ -340,8 +344,8 @@ function handleContentWarning(e) {
 
   }
   else {
-    const ecopy=sessionStorage.getItem('eCopy');
-    SetContentWarningOnThumbnail(ecopy,false);
+    const ecopy = sessionStorage.getItem('eCopy');
+    SetContentWarningOnThumbnail(ecopy, false);
 
     //Remove the item on the Content warning list
     let contentWarningList = JSON.parse(sessionStorage.getItem('ContentWarningList'));
@@ -361,7 +365,7 @@ function handleContentWarning(e) {
 
 
 
-function SetContentWarningOnThumbnail(ecopyId: string, ShowWarning: boolean = true) {
+function SetContentWarningOnThumbnail(ecopyId: string, ShowWarning: boolean = true, orderIndex: number = 0) {
 
   if (ShowWarning) {
     const eyeId = document.getElementById('eye_' + ecopyId);
@@ -386,6 +390,10 @@ function SetContentWarningOnThumbnail(ecopyId: string, ShowWarning: boolean = tr
       if (indicator.length > 0) {
         clearInterval(intervalId); // Stop the interval       
         if (ShowWarning) {
+          if (orderIndex == 1) {
+            console.log('click will trigger:' + ecopyId);
+            wrapEl.click();
+          }
           let marginTop = 'margin-top:-20%;';
           let uccIndicator = wrapEl.querySelector('ucc-indicator');
           if (uccIndicator) {
@@ -399,6 +407,7 @@ function SetContentWarningOnThumbnail(ecopyId: string, ShowWarning: boolean = tr
           spanEl.innerHTML = iconEyeSlash;
           wrapEl.appendChild(spanEl);
           indicator[0].setAttribute('style', 'opacity: 0.1;');
+          
         }
         else {
           indicator[0].setAttribute('style', 'opacity: 1.0;');
@@ -409,7 +418,7 @@ function SetContentWarningOnThumbnail(ecopyId: string, ShowWarning: boolean = tr
 
         }
       }
-    }, 100);
+    }, 10);
   }
 }
 
@@ -465,9 +474,10 @@ function blueTag(e) {
 
 export async function hvAppConfig(hvEnv: string) {
   const localConfig: EnvironmentConfig = {
-    env: 'local',
+    env: 'local',    
     authority: 'http://v41extcapps01-d.dev.bac-lac.gc.ca:5001',
-    uccApi: 'https://colabapi-d.dev.bac-lac.gc.ca/api/Colab',
+    //uccApi: 'https://colabapi-d.dev.bac-lac.gc.ca/api/Colab',
+    uccApi: 'http://localhost:5191/api/Colab',
     centralApi: 'https://central.bac-lac.gc.ca/',
     recordUrl: 'https://recherche-collection-search.bac-lac.gc.ca/',
     redirect_uri: 'https://www.bac-lac.gc.ca/_layouts/15/Proxy/Proxy.aspx?u=https://lacbac03.blob.core.windows.net/dev/callback.html',
